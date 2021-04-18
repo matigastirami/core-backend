@@ -4,6 +4,7 @@ import { User, UserSchema } from './schema/user.schema';
 import { Permission, PermissionSchema } from './schema/permission.schema';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
+import { UsersResolver } from './users.resolver';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { UsersController } from './users.controller';
       }
     ])
   ],
-  providers: [UsersService],
+  providers: [UsersService, UsersResolver],
   exports: [UsersService],
   controllers: [UsersController]
 })

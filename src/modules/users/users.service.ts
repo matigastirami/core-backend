@@ -33,7 +33,7 @@ export class UsersService {
       ...createUserDto,
       password: await Hash.hashString(
         createUserDto.password,
-        process.env.HASHING_ROUNDS,
+        Number(process.env.HASHING_ROUNDS),
       ),
     });
     return createdUser.save();
