@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { App } from '../modules/apps/schema/app.schema';
+import { App } from '../../apps/schema/app.schema';
 
 export type RoleDocument = Role & mongoose.Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Role {
     @Prop({ required: true, unique: true })
     code: string;
   
-    @Prop({ required: true, unique: true })
+    @Prop({ required: true })
     description: string;
   
     @Prop({ required: true, min: Date.now() })
