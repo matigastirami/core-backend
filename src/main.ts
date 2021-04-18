@@ -13,6 +13,7 @@ async function bootstrap() {
     .setDescription('Services that provides the functionalities to handle users and their permissions')
     .setContact('Matías Ramirez', 'https://github.com/matigastirami', 'matigastirami@gmail.com')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
