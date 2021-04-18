@@ -1,17 +1,20 @@
-import { Body, Controller, Get, Post, Param, Put, HttpException, HttpStatus, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Put, HttpException, HttpStatus, Delete, UseGuards } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('roles')
 export class RolesController {
     constructor(private readonly rolesService: RolesService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async create(@Body() createRoleDto: CreateRoleDto) {
         await this.rolesService.create(createRoleDto);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     async update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
         let updated = await this.rolesService.update(id, updateRoleDto);
@@ -21,6 +24,7 @@ export class RolesController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async get(@Param('id') id: string) {
         let found = await this.rolesService.findById(id);
@@ -32,11 +36,13 @@ export class RolesController {
         return found;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     async list() {
         return this.rolesService.findAll();
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async delete(@Param('id') id: string) {
         let deleted = await this.rolesService.delete(id);
