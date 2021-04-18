@@ -4,18 +4,42 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './schema/user.schema';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AddPermissionDto } from './dto/add-permission.dto';
+import { RemovePermissionDto } from './dto/remove-permission.dto';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
+  @Post('permissions')
+  async addPermissionsToUser(@Body() addPermissionDto: AddPermissionDto) {
+    await this.usersService.addPermissionToUser(addPermissionDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('permissions')
+  async removePermissionsToUser(@Body() removePermissionDto: RemovePermissionDto) {
+    await this.usersService.removePermissionFromUser(removePermissionDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/permissions')
+  async getUserPermissions(@Param('id') userId: User) {
+    return this.usersService.getUserPermissions(userId);
+  }
+
   @Post()
+  @ApiBody({ type: [CreateUserDto] })
   async create(@Body() createUserDto: CreateUserDto) {
     await this.usersService.createUser(createUserDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
+  @ApiBody({ type: [UpdateUserDto] })
   async update(@Param('id') id, @Body() updateUserDto: UpdateUserDto) {
     let updated = await this.usersService.updateUser(id, updateUserDto);
 

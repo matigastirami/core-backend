@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Permission } from "../../../models/permission.schema";
+import { Permission } from "./permission.schema";
 
 export type UserDocument = User & mongoose.Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   username: string;
@@ -20,9 +20,6 @@ export class User {
 
   @Prop({ required: true })
   surname: string;
-
-  @Prop({ required: false, default: [], type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }] })
-  permissions: Permission[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

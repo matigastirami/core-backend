@@ -11,6 +11,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Core Service')
     .setDescription('Services that provides the functionalities to handle users and their permissions')
+    .setContact('Matías Ramirez', 'https://github.com/matigastirami', 'matigastirami@gmail.com')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

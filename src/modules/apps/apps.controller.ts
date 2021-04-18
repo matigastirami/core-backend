@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Post, Param, Put, HttpException, HttpStatus, Delete, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AppsService } from "./apps.service";
 import { CreateAppDto } from './dto/create-app.dto';
 import { UpdateAppDto } from './dto/update-app.dto';
 
+@ApiTags('Apps')
 @Controller('apps')
 export class AppsController {
     constructor(private readonly appsService: AppsService) {}
