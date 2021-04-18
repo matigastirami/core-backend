@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { App } from './app.schema';
+import { App } from '../modules/apps/schema/app.schema';
 
 export type RoleDocument = Role & mongoose.Document;
 

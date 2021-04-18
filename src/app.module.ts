@@ -7,13 +7,15 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { AppsModule } from './modules/apps/apps.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AuthModule,
-    UsersModule
+    UsersModule,
+    AppsModule
   ],
   controllers: [AppController],
   providers: [AppService],
