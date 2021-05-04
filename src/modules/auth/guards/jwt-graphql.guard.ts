@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Inject, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { JwtService } from '@nestjs/jwt'
 import { AuthGuard } from '@nestjs/passport';
@@ -6,7 +6,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class JWTGqlAuthGuard extends AuthGuard('jwt') implements CanActivate {
 
-    constructor(private readonly jwtService: JwtService) {
+    constructor(@Inject('JwtService') private readonly jwtService: JwtService) {
         super();
     }
 
@@ -14,6 +14,8 @@ export class JWTGqlAuthGuard extends AuthGuard('jwt') implements CanActivate {
         const ctx = GqlExecutionContext.create(context);
         const request = ctx.getContext().request;
         const Authorization = request.get('Authorization');
+
+        console.log(Authorization);
     
         if (Authorization) {
           const token = Authorization.replace('Bearer ', '');

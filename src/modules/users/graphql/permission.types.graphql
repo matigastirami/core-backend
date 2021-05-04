@@ -1,0 +1,41 @@
+# Permission type is totally made of strings representing the _id's of the entities
+type Permission {
+    _id: String,
+    app: String!
+    roles: [String!]!,
+    userId: String!
+}
+
+input AddPermission {
+    app: String!
+    roles: [String!]!,
+    userId: String!
+}
+
+input RemovePermission {
+    app: String!
+    roles: [String!],
+    userId: String!
+}
+
+input ChangePassword {
+    id: String!,
+    oldPassword: String!,
+    newPassword: String!
+}
+
+type Mutation {
+  addPermissionsToUser(input: AddPermission!): Permission
+}
+
+type Mutation {
+  removePermissionsFromUser(input: RemovePermission!): Permission
+}
+
+type Mutation {
+  changeUserPassword(input: ChangePassword!): User
+}
+
+type Query {
+    getUserPermissions(id: String!): [Permission]
+}

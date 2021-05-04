@@ -88,8 +88,8 @@ export class UsersService {
     
   }
 
-  async getUserPermissions(userId: User) {
-    return this.permissionModel.find({ userId })
+  public async getUserPermissions(userId: User) {
+    return this.permissionModel.find({ userId });
   }
 
   async updateUser(id: string, data: UpdateUserDto) {
