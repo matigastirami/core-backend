@@ -1,5 +1,0 @@
-{
-    "middlewareURL": "",
-    "JWTSecret": "CFKViejaChorra",
-    "MongoDBURI": "mongodb+srv://auth-main-dev:mramirezdev@cluster0.kkv4e.mongodb.net/auth-main-dev?retryWrites=true&w=majority"
-}
