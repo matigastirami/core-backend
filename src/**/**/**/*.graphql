@@ -24,13 +24,40 @@ input ChangePassword {
     newPassword: String!
 }
 
+type User {
+  _id: String
+  username: String
+  email: String
+  password: String
+  name: String
+  surname: String
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  name: String!
+  surname: String!
+}
+
+input UserFilter {
+  username: String,
+  email: String
+}
+
+type Query {
+  user(id: String!): User
+  users(filter: UserFilter!): [User]
+  getUserPermissions(id: String!): [Permission]
+}
+
+
 type Mutation {
   addPermissionsToUser(input: AddPermission!): Permission
   removePermissionsFromUser(input: RemovePermission!): Permission
   changeUserPassword(input: ChangePassword!): User
-}
-
-type Query {
-    getUserPermissions(id: String!): [Permission]
+  deleteUser(id: String!): User
+  createUser(input: CreateUserInput!): User
 }
 
