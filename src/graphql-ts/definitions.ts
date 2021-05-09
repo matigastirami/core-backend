@@ -7,6 +7,11 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class LoginInput {
+    username: string;
+    password: string;
+}
+
 export class AddPermission {
     app: string;
     roles: string[];
@@ -38,14 +43,13 @@ export class UserFilter {
     email?: string;
 }
 
-export class Permission {
-    _id?: string;
-    app: string;
-    roles: string[];
-    userId: string;
+export class LoginOutput {
+    access_token: string;
 }
 
 export abstract class IMutation {
+    abstract login(input: LoginInput): LoginOutput | Promise<LoginOutput>;
+
     abstract addPermissionsToUser(input: AddPermission): Permission | Promise<Permission>;
 
     abstract removePermissionsFromUser(input: RemovePermission): Permission | Promise<Permission>;
@@ -55,6 +59,13 @@ export abstract class IMutation {
     abstract deleteUser(id: string): User | Promise<User>;
 
     abstract createUser(input: CreateUserInput): User | Promise<User>;
+}
+
+export class Permission {
+    _id?: string;
+    app: string;
+    roles: string[];
+    userId: string;
 }
 
 export abstract class IQuery {
