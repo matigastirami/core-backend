@@ -10,32 +10,31 @@ export class AppsResolver {
 
     constructor(private readonly appsService: AppsService){}
 
-    //@UseGuards(JWTGqlAuthGuard)
+    @UseGuards(JWTGqlAuthGuard)
     @Mutation('createApp')
     async create(@Args('input') input: CreateAppDto) {
-        console.log(input)
         return this.appsService.create(input);
     }
 
-    //@UseGuards(JWTGqlAuthGuard)
+    @UseGuards(JWTGqlAuthGuard)
     @Mutation('updateApp')
     async update(@Args('id') id: string, @Args('input') input: UpdateAppDto) {
         return this.appsService.update(id, input);
     }
 
-    //@UseGuards(JWTGqlAuthGuard)
+    @UseGuards(JWTGqlAuthGuard)
     @Query('app')
     async get(@Args('id') id: string) {
         return this.appsService.findById(id);
     }
 
-    //@UseGuards(JWTGqlAuthGuard)
+    @UseGuards(JWTGqlAuthGuard)
     @Query('apps')
     async list() {
         return this.appsService.findAll();
     }
 
-    //@UseGuards(JWTGqlAuthGuard)
+    @UseGuards(JWTGqlAuthGuard)
     @Mutation('deleteApp')
     async delete(@Args('id') id: string) {
         return this.appsService.delete(id);

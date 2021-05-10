@@ -13,7 +13,6 @@ export class RolesResolver {
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('createRole')
     async create(@Args('input') input: CreateRoleDto) {
-        console.log(input)
         return this.rolesService.create(input);
     }
 
