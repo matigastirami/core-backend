@@ -7,6 +7,17 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export class CreateApp {
+    code: string;
+    description: string;
+    url: string;
+}
+
+export class UpdateApp {
+    description: string;
+    url: string;
+}
+
 export class LoginInput {
     username: string;
     password: string;
@@ -59,11 +70,35 @@ export class UserFilter {
     email?: string;
 }
 
-export class LoginOutput {
-    access_token: string;
+export class App {
+    code: string;
+    description: string;
+    url: string;
+}
+
+export abstract class IQuery {
+    abstract app(id: string): App | Promise<App>;
+
+    abstract apps(): App[] | Promise<App[]>;
+
+    abstract role(id: string): Role | Promise<Role>;
+
+    abstract roles(): Role[] | Promise<Role[]>;
+
+    abstract getUserPermissions(id: string): Permission[] | Promise<Permission[]>;
+
+    abstract user(id: string): User | Promise<User>;
+
+    abstract users(filter: UserFilter): User[] | Promise<User[]>;
 }
 
 export abstract class IMutation {
+    abstract createApp(input: CreateApp): App | Promise<App>;
+
+    abstract updateApp(id: string, input: UpdateApp): App | Promise<App>;
+
+    abstract deleteApp(id: string): App | Promise<App>;
+
     abstract login(input: LoginInput): LoginOutput | Promise<LoginOutput>;
 
     abstract createRole(input?: CreateRole): Role | Promise<Role>;
@@ -83,24 +118,16 @@ export abstract class IMutation {
     abstract createUser(input: CreateUserInput): User | Promise<User>;
 }
 
+export class LoginOutput {
+    access_token: string;
+}
+
 export class Role {
     code: string;
     description: string;
     expirationDate: Date;
     allowedActions: string[];
     appId: string;
-}
-
-export abstract class IQuery {
-    abstract role(id: string): Role | Promise<Role>;
-
-    abstract roles(): Role[] | Promise<Role[]>;
-
-    abstract getUserPermissions(id: string): Permission[] | Promise<Permission[]>;
-
-    abstract user(id: string): User | Promise<User>;
-
-    abstract users(filter: UserFilter): User[] | Promise<User[]>;
 }
 
 export class Permission {

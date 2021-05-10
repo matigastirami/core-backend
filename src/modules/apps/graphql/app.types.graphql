@@ -1,0 +1,28 @@
+
+type App {
+    code: String!,
+    description: String!,
+    url: String!
+}
+
+input CreateApp {
+    code: String!,
+    description: String!,
+    url: String!
+}
+
+input UpdateApp {
+    description: String!,
+    url: String!
+}
+
+type Query {
+    app(id: String!): App,
+    apps: [App]
+}
+
+type Mutation {
+    createApp(input: CreateApp!): App,
+    updateApp(id: String!, input: UpdateApp!): App,
+    deleteApp(id: String!): App
+}
