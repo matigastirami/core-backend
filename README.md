@@ -1,4 +1,4 @@
-# Core-Backend [BETA]
+# Core-Backend
 
 ## Description
 
