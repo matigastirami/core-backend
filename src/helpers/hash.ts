@@ -9,3 +9,6 @@ export default class Hash {
         return bcrypt.compare(string, hash);
     }
 }
+
+// TODO: Find the way to have a global helper
+//globalThis.core.register('hash', new Hash());

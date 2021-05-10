@@ -19,6 +19,8 @@ import { AppsModule } from './modules/apps/apps.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { join } from 'path';
 
+import { DateScalar } from './helpers/date-scalar.gql'
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -45,6 +47,6 @@ import { join } from 'path';
     RolesModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DateScalar],
 })
 export class AppModule {}

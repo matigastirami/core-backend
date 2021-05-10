@@ -12,6 +12,22 @@ export class LoginInput {
     password: string;
 }
 
+export class CreateRole {
+    code: string;
+    description: string;
+    expirationDate: Date;
+    allowedActions: string[];
+    appId: string;
+}
+
+export class UpdateRole {
+    code: string;
+    description: string;
+    expirationDate: Date;
+    allowedActions: string[];
+    appId: string;
+}
+
 export class AddPermission {
     app: string;
     roles: string[];
@@ -50,6 +66,12 @@ export class LoginOutput {
 export abstract class IMutation {
     abstract login(input: LoginInput): LoginOutput | Promise<LoginOutput>;
 
+    abstract createRole(input?: CreateRole): Role | Promise<Role>;
+
+    abstract updateRole(id?: string, input?: UpdateRole): Role | Promise<Role>;
+
+    abstract deleteRole(id: string): Role | Promise<Role>;
+
     abstract addPermissionsToUser(input: AddPermission): Permission | Promise<Permission>;
 
     abstract removePermissionsFromUser(input: RemovePermission): Permission | Promise<Permission>;
@@ -61,19 +83,31 @@ export abstract class IMutation {
     abstract createUser(input: CreateUserInput): User | Promise<User>;
 }
 
-export class Permission {
-    _id?: string;
-    app: string;
-    roles: string[];
-    userId: string;
+export class Role {
+    code: string;
+    description: string;
+    expirationDate: Date;
+    allowedActions: string[];
+    appId: string;
 }
 
 export abstract class IQuery {
+    abstract role(id: string): Role | Promise<Role>;
+
+    abstract roles(): Role[] | Promise<Role[]>;
+
     abstract getUserPermissions(id: string): Permission[] | Promise<Permission[]>;
 
     abstract user(id: string): User | Promise<User>;
 
     abstract users(filter: UserFilter): User[] | Promise<User[]>;
+}
+
+export class Permission {
+    _id?: string;
+    app: string;
+    roles: string[];
+    userId: string;
 }
 
 export class User {

@@ -1,0 +1,36 @@
+scalar Date
+
+type Role {
+    code: String!,
+    description: String!,
+    expirationDate: Date!,
+    allowedActions: [String!]!,
+    appId: String!
+}
+
+input CreateRole {
+    code: String!,
+    description: String!,
+    expirationDate: Date!,
+    allowedActions: [String!]!,
+    appId: String!
+}
+
+input UpdateRole {
+    code: String!,
+    description: String!,
+    expirationDate: Date!,
+    allowedActions: [String!]!,
+    appId: String!
+}
+
+type Query {
+    role(id: String!): Role,
+    roles: [Role]
+}
+
+type Mutation {
+    createRole(input: CreateRole): Role,
+    updateRole(id: String, input: UpdateRole): Role,
+    deleteRole(id: String!): Role
+}
