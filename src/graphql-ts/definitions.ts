@@ -23,6 +23,26 @@ export class LoginInput {
     password: string;
 }
 
+export class CreateCompany {
+    name: string;
+    description: string;
+    page_url?: string;
+    logo_url?: string;
+    location?: string;
+}
+
+export class UpdateCompany {
+    name: string;
+    description: string;
+    page_url?: string;
+    logo_url?: string;
+    location?: string;
+}
+
+export class EnableDisableCompany {
+    enabled: boolean;
+}
+
 export class CreateRole {
     code: string;
     description: string;
@@ -81,6 +101,10 @@ export abstract class IQuery {
 
     abstract apps(): App[] | Promise<App[]>;
 
+    abstract company(id: string): Company | Promise<Company>;
+
+    abstract companies(): Company[] | Promise<Company[]>;
+
     abstract role(id: string): Role | Promise<Role>;
 
     abstract roles(): Role[] | Promise<Role[]>;
@@ -101,6 +125,16 @@ export abstract class IMutation {
 
     abstract login(input: LoginInput): LoginOutput | Promise<LoginOutput>;
 
+    abstract createCompany(input: CreateCompany): Company | Promise<Company>;
+
+    abstract updateCompany(id: string, input: UpdateCompany): Company | Promise<Company>;
+
+    abstract deleteCompany(id: string): Company | Promise<Company>;
+
+    abstract disableCompany(id: string): Company | Promise<Company>;
+
+    abstract enableCompany(id: string): Company | Promise<Company>;
+
     abstract createRole(input?: CreateRole): Role | Promise<Role>;
 
     abstract updateRole(id?: string, input?: UpdateRole): Role | Promise<Role>;
@@ -120,6 +154,16 @@ export abstract class IMutation {
 
 export class LoginOutput {
     access_token: string;
+}
+
+export class Company {
+    _id?: string;
+    name: string;
+    description: string;
+    page_url?: string;
+    logo_url?: string;
+    location?: string;
+    enabled?: boolean;
 }
 
 export class Role {
