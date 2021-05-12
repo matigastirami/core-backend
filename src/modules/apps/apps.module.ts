@@ -9,6 +9,7 @@ import { AppsResolver } from './apps.resolver';
 @Module({
   imports: [MongooseModule.forFeature([{ name: App.name, schema: AppSchema }])],
   controllers: [AppsController],
-  providers: [AppsService, AppsResolver]
+  providers: [AppsService, AppsResolver],
+  exports: [AppsService]
 })
 export class AppsModule {}
