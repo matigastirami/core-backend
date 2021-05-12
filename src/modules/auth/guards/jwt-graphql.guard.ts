@@ -14,13 +14,10 @@ export class JWTGqlAuthGuard extends AuthGuard('jwt') implements CanActivate {
         const ctx = GqlExecutionContext.create(context);
         const request = ctx.getContext().request;
         const Authorization = request.get('Authorization');
-
-        console.log(Authorization);
     
         if (Authorization) {
           const token = Authorization.replace('Bearer ', '');
           const userId = this.jwtService.verify(token);
-          console.log(userId);
           return !!userId;
         }
       }

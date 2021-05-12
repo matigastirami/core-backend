@@ -11,6 +11,7 @@ export class CreateApp {
     code: string;
     description: string;
     url: string;
+    companyId: string;
 }
 
 export class UpdateApp {
@@ -94,6 +95,7 @@ export class App {
     code: string;
     description: string;
     url: string;
+    company?: Company;
 }
 
 export abstract class IQuery {
