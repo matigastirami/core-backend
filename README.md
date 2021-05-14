@@ -26,6 +26,11 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Once the app is running, open:
+
+* http://localhost:3000/api for Swagger docs, or
+* http://localhost:3000/graphql for GQL playground
+
 ## Test
 
 ```bash
