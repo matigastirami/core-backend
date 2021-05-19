@@ -1,6 +1,6 @@
 // Nest config modules
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 // My Controllers
 import { AppController } from './app.controller';
@@ -17,15 +17,27 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { AppsModule } from './modules/apps/apps.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { CompaniesModule } from './modules/companies/companies.module';
+
 import { join } from 'path';
 
 import { DateScalar } from './helpers/date-scalar.gql'
-import { CompaniesModule } from './modules/companies/companies.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGODB_URI, { useCreateIndex: true, useNewUrlParser: true, useFindAndModify: false }),
+    MongooseModule.forRootAsync(
+      {
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: async (configService: ConfigService) => ({
+          uri: configService.get('MONGODB_URI'),
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+          useFindAndModify: false,
+        })
+      }),
     GraphQLModule.forRoot({
       //debug: true,
       playground: {
@@ -40,7 +52,8 @@ import { CompaniesModule } from './modules/companies/companies.module';
         return {
           request: req,
         };
-      }
+      },
+      
     }),
     AuthModule,
     UsersModule,

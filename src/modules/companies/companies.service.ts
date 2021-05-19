@@ -54,6 +54,6 @@ export class CompaniesService {
         // TODO: Implement "company" field in appModel after creating the companies module
         //return this.appModel.findOne({ _id: appId, company: companyId });
 
-        return true;
+        throw new Error('Not implemented')
     }
 }

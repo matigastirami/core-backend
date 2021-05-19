@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { App } from "src/modules/apps/schema/app.schema";
-import { Role } from "src/modules/roles/schema/role.schema";
+import { App } from "../../apps/schema/app.schema";
+import { Role } from "../../roles/schema/role.schema";
 import { User } from "../schema/user.schema";
 
 export class AddPermissionDto {

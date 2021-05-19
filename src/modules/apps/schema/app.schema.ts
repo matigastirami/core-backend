@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Company } from 'src/modules/companies/schema/company.schema';
+import { Company } from '../../companies/schema/company.schema';
 
 export type AppDocument = App & Document;
 
