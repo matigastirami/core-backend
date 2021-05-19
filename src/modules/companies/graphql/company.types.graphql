@@ -1,0 +1,45 @@
+type Company {
+    _id: String,
+    name: String!,
+    description: String!,
+    page_url: String,
+    logo_url: String,
+    location: String,
+    enabled: Boolean
+}
+
+input CreateCompany {
+    name: String!,
+    description: String!,
+    page_url: String,
+    logo_url: String,
+    location: String
+}
+
+input UpdateCompany {
+    name: String!,
+    description: String!,
+    page_url: String,
+    logo_url: String,
+    location: String
+}
+
+input EnableDisableCompany {
+    enabled: Boolean!
+}
+
+type Query {
+    company(id: String!): Company,
+    companies: [Company]
+}
+
+type Mutation {
+    createCompany(input: CreateCompany!): Company,
+    updateCompany(id: String!, input: UpdateCompany!): Company,
+    deleteCompany(id: String!): Company,
+    disableCompany(id: String!): Company,
+    enableCompany(id: String!): Company
+}
+
+
+

@@ -10,11 +10,11 @@ export class AppsService {
     constructor(@InjectModel(App.name) private readonly appModel: mongoose.Model<AppDocument>) {}
 
     async findById(id: string) {
-        return this.appModel.findById(id);
+        return this.appModel.findById(id).populate('company');
     }
 
     async findAll(filter: any = {}) {
-        return this.appModel.find(filter);
+        return this.appModel.find(filter).populate('company');
     }
 
     async create(createAppDto: CreateAppDto) {

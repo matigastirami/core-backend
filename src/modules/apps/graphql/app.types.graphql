@@ -2,13 +2,15 @@
 type App {
     code: String!,
     description: String!,
-    url: String!
+    url: String!,
+    company: Company
 }
 
 input CreateApp {
     code: String!,
     description: String!,
-    url: String!
+    url: String!,
+    companyId: String!
 }
 
 input UpdateApp {

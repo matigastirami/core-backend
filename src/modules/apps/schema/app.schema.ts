@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Company } from '../../companies/schema/company.schema';
 
 export type AppDocument = App & Document;
 
@@ -8,11 +9,14 @@ export class App {
   @Prop({ required: true, unique: true })
   code: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   description: string;
 
   @Prop({ required: true })
   url: string;
+
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Company' })
+  company: Company;
 }
 
 export const AppSchema = SchemaFactory.createForClass(App);
