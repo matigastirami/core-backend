@@ -4,6 +4,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as helmet from 'helmet';
 
 async function bootstrap() {
+
+  console.info(`0.0.0.0:${process.env.PORT}, ${process.env.MONGODB_URI}`);
+
   const app = await NestFactory.create(AppModule, {
     logger: true
   });

@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+    dev:
+        container_name: core_backend_dev
+        image: core-backend:1.0.0
+        build:
+            context: .
+            target: development
+            dockerfile: ./Dockerfile
+        command: npm run start:debug
+        ports:
+            - "${PORT}:${PORT}"
+            - 9229:9229
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
+            - /usr/src/app/node_modules
+        restart: always
+        networks:
+            - core_net
+        depends_on: 
+            - mongodb
+        links:
+            - mongodb
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb
+        volumes:
+            - mongodata:/data/db
+        ports:
+            - 27017:27017
+        networks:
+            - core_net
+        restart: always
+
+networks:
+    core_net:
+        driver: bridge
+
+volumes:
+    mongodata:
