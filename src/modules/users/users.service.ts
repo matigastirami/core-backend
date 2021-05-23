@@ -21,7 +21,7 @@ export class UsersService {
   }
 
   async findOneByUserName(username: string) {
-    return this.userModel.findOne({ username });
+    return this.userModel.findOne({ username }).lean(true);
   }
 
   async findOneByEmail(email: string) {

@@ -30,7 +30,7 @@ export class CompaniesResolver {
     @UseGuards(JWTGqlAuthGuard)
     @Query('companies')
     async list() {
-        return this.companiesService.findAll();
+        return this.companiesService.findAll({}, '1234');
     }
 
     @UseGuards(JWTGqlAuthGuard)

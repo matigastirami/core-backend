@@ -5,7 +5,8 @@ type Company {
     page_url: String,
     logo_url: String,
     location: String,
-    enabled: Boolean
+    enabled: Boolean!,
+    user: User
 }
 
 input CreateCompany {
@@ -13,7 +14,8 @@ input CreateCompany {
     description: String!,
     page_url: String,
     logo_url: String,
-    location: String
+    location: String,
+    user: String!
 }
 
 input UpdateCompany {

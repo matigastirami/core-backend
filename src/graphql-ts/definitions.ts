@@ -30,6 +30,7 @@ export class CreateCompany {
     page_url?: string;
     logo_url?: string;
     location?: string;
+    user: string;
 }
 
 export class UpdateCompany {
@@ -165,7 +166,8 @@ export class Company {
     page_url?: string;
     logo_url?: string;
     location?: string;
-    enabled?: boolean;
+    enabled: boolean;
+    user?: User;
 }
 
 export class Role {

@@ -17,8 +17,8 @@ export class CompaniesService {
         return this.companyModel.findById(id);
     }
 
-    async findAll(filter: any = {}) {
-        return this.companyModel.find(filter);
+    async findAll(filter: any = {}, userId: String) {
+        return this.companyModel.find({ ...filter, user: userId });
     }
 
     async create(createAppDto: CreateCompanyDto) {

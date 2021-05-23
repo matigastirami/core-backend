@@ -20,7 +20,6 @@ import { RolesModule } from './modules/roles/roles.module';
 import { CompaniesModule } from './modules/companies/companies.module';
 
 import { join } from 'path';
-
 import { DateScalar } from './helpers/date-scalar.gql'
 
 @Module({
@@ -64,4 +63,6 @@ import { DateScalar } from './helpers/date-scalar.gql'
   controllers: [AppController],
   providers: [AppService, DateScalar],
 })
-export class AppModule {}
+export class AppModule {
+
+}

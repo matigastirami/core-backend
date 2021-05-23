@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CompaniesService } from './companies.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
@@ -40,8 +40,8 @@ export class CompaniesController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    async list() {
-        return this.companiesService.findAll();
+    async list(@Request() req) {
+        return this.companiesService.findAll({ ...(req.query ?? {}) }, req.user._id);
     }
 
     @UseGuards(JwtAuthGuard)
