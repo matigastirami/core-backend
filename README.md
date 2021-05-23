@@ -13,7 +13,7 @@
 $ npm install
 ```
 
-## Running the app
+## Running the app locally (MongoDB required)
 
 ```bash
 # development
@@ -24,6 +24,11 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+## Running the app in Docker (Docker required)
+```bash
+docker-compose up
 ```
 
 Once the app is running, open:
