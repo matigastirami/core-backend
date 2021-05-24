@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { App, AppDocument } from '../apps/schema/app.schema';
+// import { App, AppDocument } from '../apps/schema/app.schema';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { Company, CompanyDocument } from './schema/company.schema';
@@ -13,34 +13,34 @@ export class CompaniesService {
         //@InjectModel(App.name) private readonly appModel: mongoose.Model<AppDocument>
     ) {}
 
-    async findById(id: string) {
-        return this.companyModel.findById(id);
+    async findById(_id: string, userId: String) {
+        return this.companyModel.findOne({_id, user: userId});
     }
 
     async findAll(filter: any = {}, userId: String) {
         return this.companyModel.find({ ...filter, user: userId });
     }
 
-    async create(createAppDto: CreateCompanyDto) {
-        const created = new this.companyModel({ ...createAppDto });
+    async create(createAppDto: CreateCompanyDto, userId: String) {
+        const created = new this.companyModel({ ...createAppDto, user: userId });
         return created.save();
     }
 
-    async update(id: string, updateAppDto: UpdateCompanyDto) {
-        const updated = await this.companyModel.findByIdAndUpdate(id, updateAppDto);
+    async update(_id: string, updateAppDto: UpdateCompanyDto, userId: String) {
+        const updated = await this.companyModel.findOneAndUpdate({ _id, user: userId }, updateAppDto);
         return updated;
     }
 
-    async delete(id: string) {
-        return this.companyModel.findByIdAndRemove(id);
+    async delete(_id: string, userId: String) {
+        return this.companyModel.findOneAndRemove({ _id, user: userId });
     }
 
-    async disable(id: string) {
-        return this.companyModel.findByIdAndUpdate(id, { enabled: false });
+    async disable(_id: string, userId: String) {
+        return this.companyModel.findOneAndUpdate({ _id, user: userId }, { enabled: false });
     }
 
-    async enable(id: string) {
-        return this.companyModel.findByIdAndUpdate(id, { enabled: true });
+    async enable(_id: string, userId: String) {
+        return this.companyModel.findOneAndUpdate({ _id, user: userId }, { enabled: true });
     }
 
     /**

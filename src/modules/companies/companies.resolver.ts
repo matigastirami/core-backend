@@ -12,19 +12,19 @@ export class CompaniesResolver {
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('createCompany')
     async create(@Args('input') input: CreateCompanyDto) {
-        return this.companiesService.create(input);
+        return this.companiesService.create(input, '1234');
     }
 
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('updateCompany')
     async update(@Args('id') id: string, @Args('input') input: UpdateCompanyDto) {
-        return this.companiesService.update(id, input);
+        return this.companiesService.update(id, input, '1234');
     }
 
     @UseGuards(JWTGqlAuthGuard)
     @Query('company')
     async get(@Args('id') id: string) {
-        return this.companiesService.findById(id);
+        return this.companiesService.findById(id, '1234');
     }
 
     @UseGuards(JWTGqlAuthGuard)
@@ -36,18 +36,18 @@ export class CompaniesResolver {
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('deleteCompany')
     async delete(@Args('id') id: string) {
-        return this.companiesService.delete(id);
+        return this.companiesService.delete(id, '1234');
     } 
 
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('')
     async disableCompany(@Args('id') id: string) {
-        return this.companiesService.disable(id);
+        return this.companiesService.disable(id, '1234');
     } 
 
     @UseGuards(JWTGqlAuthGuard)
     @Mutation('')
     async enableCompany(@Args('id') id: string) {
-        return this.companiesService.enable(id);
+        return this.companiesService.enable(id, '1234');
     } 
 }

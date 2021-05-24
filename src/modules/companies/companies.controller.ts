@@ -10,17 +10,17 @@ export class CompaniesController {
 
     @UseGuards(JwtAuthGuard)
     @Post()
-    async create(@Body() createAppDto: CreateCompanyDto) {
-        return this.companiesService.create(createAppDto);
+    async create(@Request() req, @Body() createAppDto: CreateCompanyDto) {
+        return this.companiesService.create(createAppDto, req.user._id);
     }
 
     @UseGuards(JwtAuthGuard)
     @Put(':id')
-    async update(@Param('id') id: string, @Body() updateAppDto: UpdateCompanyDto) {
-        let updated = await this.companiesService.update(id, updateAppDto);
+    async update(@Request() req, @Param('id') id: string, @Body() updateAppDto: UpdateCompanyDto) {
+        let updated = await this.companiesService.update(id, updateAppDto, req.user._id);
 
         if(!updated) {
-            throw new HttpException('App not found', HttpStatus.NOT_FOUND);
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
         }
 
         return updated;
@@ -28,11 +28,11 @@ export class CompaniesController {
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')
-    async get(@Param('id') id: string) {
-        let found = await this.companiesService.findById(id);
+    async get(@Request() req, @Param('id') id: string) {
+        let found = await this.companiesService.findById(id, req.user._id);
 
         if(!found) {
-            throw new HttpException('App not found', HttpStatus.NOT_FOUND);
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
         }
 
         return found;
@@ -46,33 +46,35 @@ export class CompaniesController {
 
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    async delete(@Param('id') id: string) {
-        let deleted = await this.companiesService.delete(id);
+    async delete(@Request() req, @Param('id') id: string) {
+        let deleted = await this.companiesService.delete(id, req.user._id);
 
         if(!deleted) {
-            throw new HttpException('App not found', HttpStatus.NOT_FOUND);
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
         }
 
         return deleted;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete('disable/:id')
-    async disable(@Param('id') id: string) {
-        let disabled = await this.companiesService.disable(id);
+    async disable(@Request() req, @Param('id') id: string) {
+        let disabled = await this.companiesService.disable(id, req.user._id);
 
         if(!disabled) {
-            throw new HttpException('App not found', HttpStatus.NOT_FOUND);
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
         }
 
         return disabled;
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put('enable/:id')
-    async enable(@Param('id') id: string) {
-        let enabled = await this.companiesService.enable(id);
+    async enable(@Request() req, @Param('id') id: string) {
+        let enabled = await this.companiesService.enable(id, req.user._id);
 
         if(!enabled) {
-            throw new HttpException('App not found', HttpStatus.NOT_FOUND);
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
         }
 
         return enabled;

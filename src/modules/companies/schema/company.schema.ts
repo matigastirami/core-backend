@@ -25,7 +25,7 @@ export class Company {
   enabled: boolean;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
+  user: User | String;
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);

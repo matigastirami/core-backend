@@ -3,6 +3,5 @@ export interface CreateCompanyDto {
     description: string,
     page_url?: string,
     logo_url?: string,
-    location?: string,
-    user: string
+    location?: string
 }
