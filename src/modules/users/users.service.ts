@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import Hash from '../../helpers/hash';
 import { AddPermissionDto } from './dto/add-permission.dto';
 import { RemovePermissionDto } from './dto/remove-permission.dto';
+import { Company } from '../companies/schema/company.schema';
 
 @Injectable()
 export class UsersService {
@@ -20,8 +21,16 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  async findOneByUserName(username: string) {
-    return this.userModel.findOne({ username }).lean(true);
+  async findOneByUserName(username: string, companyId?: Company) {
+
+    const addCompanyConditionIfNotNull = () => (companyId ? { companies: companyId } : {});
+
+    return this.userModel.findOne(
+      { 
+        username, 
+        ...addCompanyConditionIfNotNull
+      }
+      ).lean(true);
   }
 
   async findOneByEmail(email: string) {

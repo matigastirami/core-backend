@@ -9,7 +9,7 @@
             "request": "attach",
             "name": "Debug: core-backend",
             "remoteRoot": "/usr/src/app",
-            "localRoot": "${workspaceFolder}/Personal_Projects/core-backend", //Replace it depending on your workspace path
+            "localRoot": "${workspaceFolder}", //Replace it depending on your workspace path
             "protocol": "inspector",
             "port": 9229,
             "restart": true,
@@ -19,7 +19,7 @@
             ],
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceFolder}/Personal_Projects/core-backend/dist/**/*.js" //Replace it depending on your workspace path
+                "${workspaceFolder}/dist/**/*.js" //Replace it depending on your workspace path
             ]
         }
     ]

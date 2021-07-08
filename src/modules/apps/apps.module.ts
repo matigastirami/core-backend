@@ -6,10 +6,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { App, AppSchema } from './schema/app.schema';
 import { AppsResolver } from './apps.resolver';
 
+const mongooseSchemas = 
+  MongooseModule.forFeature(
+    [
+      { name: App.name, schema: AppSchema }
+    ]
+  );
 @Module({
-  imports: [MongooseModule.forFeature([{ name: App.name, schema: AppSchema }])],
+  imports: [mongooseSchemas],
   controllers: [AppsController],
   providers: [AppsService, AppsResolver],
-  exports: [AppsService]
+  exports: [AppsService, mongooseSchemas]
 })
 export class AppsModule {}

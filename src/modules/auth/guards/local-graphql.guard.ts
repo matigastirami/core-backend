@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedException } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { AuthGuard } from "@nestjs/passport";
+import { Company } from "src/modules/companies/schema/company.schema";
 import { AuthService } from "../auth.service";
 
 @Injectable()
@@ -20,7 +21,7 @@ export class LocalAuthGuard extends AuthGuard('local') implements CanActivate{
 
         const { username, password } = request.body.input;
 
-        let isValid = await this.authService.validateUser(username, password);
+        let isValid = await this.authService.validateUser(username, password, {} as Company);
 
         isValid = !!isValid;
 

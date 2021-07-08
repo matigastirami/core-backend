@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CompaniesService } from './companies.service';
+import { AddUserToCompanyDto } from './dto/add-user-to-company.dto';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
@@ -72,6 +73,19 @@ export class CompaniesController {
     @Put('enable/:id')
     async enable(@Request() req, @Param('id') id: string) {
         let enabled = await this.companiesService.enable(id, req.user._id);
+
+        if(!enabled) {
+            throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
+        }
+
+        return enabled;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('user')
+    async addUserToCompany(@Body() addUserToCompanyDto: AddUserToCompanyDto) {
+        const { userId, companyId } = addUserToCompanyDto;
+        const enabled = await this.companiesService.addUserToCompany(companyId, userId);
 
         if(!enabled) {
             throw new HttpException('Company not found', HttpStatus.NOT_FOUND);

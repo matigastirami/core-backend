@@ -1,6 +1,7 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Company } from '../companies/schema/company.schema';
 import { CreateAppDto } from './dto/create-app.dto';
 import { UpdateAppDto } from './dto/update-app.dto';
 import { App, AppDocument } from './schema/app.schema';
@@ -9,25 +10,25 @@ import { App, AppDocument } from './schema/app.schema';
 export class AppsService {
     constructor(@InjectModel(App.name) private readonly appModel: mongoose.Model<AppDocument>) {}
 
-    async findById(id: string) {
-        return this.appModel.findById(id).populate('company');
+    async findById(_id: string, company: Company) {
+        return this.appModel.findOne({ _id: _id, company: company }).populate('company');
     }
 
-    async findAll(filter: any = {}) {
-        return this.appModel.find(filter).populate('company');
+    async findAll(filter: any = {}, company: Company) {
+        return this.appModel.find({ ...filter, company: company }).populate('company');
     }
 
-    async create(createAppDto: CreateAppDto) {
-        const created = new this.appModel({ ...createAppDto });
+    async create(createAppDto: CreateAppDto, company: Company) {
+        const created = new this.appModel({ ...createAppDto, company });
         return created.save();
     }
 
-    async update(id: string, updateAppDto: UpdateAppDto) {
-        const updated = await this.appModel.findByIdAndUpdate(id, updateAppDto);
+    async update(id: string, updateAppDto: UpdateAppDto, company: Company) {
+        const updated = await this.appModel.findOneAndUpdate({ _id: id, company: company }, updateAppDto);
         return updated;
     }
 
-    async delete(id: string) {
-        return this.appModel.findByIdAndRemove(id);
+    async delete(_id: string, company: Company) {
+        return this.appModel.findOneAndRemove({ _id: _id, company: company });
     }
 }

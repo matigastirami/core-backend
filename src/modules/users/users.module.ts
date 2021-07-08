@@ -6,21 +6,23 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { UsersResolver } from './users.resolver';
 
+const mongooseSchemas = 
+  MongooseModule.forFeature([
+    { 
+      name: User.name, 
+      schema: UserSchema 
+    },
+    { 
+      name: Permission.name, 
+      schema: PermissionSchema 
+    }
+  ]);
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { 
-        name: User.name, 
-        schema: UserSchema 
-      },
-      { 
-        name: Permission.name, 
-        schema: PermissionSchema 
-      }
-    ])
+    mongooseSchemas
   ],
   providers: [UsersService, UsersResolver],
-  exports: [UsersService],
+  exports: [UsersService, mongooseSchemas],
   controllers: [UsersController]
 })
 export class UsersModule {}

@@ -36,7 +36,7 @@ import { DateScalar } from './helpers/date-scalar.gql'
           useCreateIndex: true,
           useFindAndModify: false,
         })
-      }),
+    }),
     GraphQLModule.forRoot({
       //debug: true,
       playground: {

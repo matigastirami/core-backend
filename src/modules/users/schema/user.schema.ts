@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
-import { Permission } from "./permission.schema";
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Company } from '../../companies/schema/company.schema';
 
-export type UserDocument = User & mongoose.Document;
+export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
@@ -20,6 +20,9 @@ export class User {
 
   @Prop({ required: true })
   surname: string;
+
+  @Prop({ required: true, type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Company' }] })
+  companies: Company[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
